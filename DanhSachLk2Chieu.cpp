@@ -147,20 +147,80 @@ void insert(){
 void inra(){
 	cout << "\n";
 	Node *P_try = first;
+	
 	while(P_try != NULL){
 		cout << P_try->DATA << " ";
 		P_try = P_try->P_R;
 	}
+	
 }
 
+void deletenode(){
+	int choice;
+	cout << "\nChon: ";
+	cout << "\n1.Delete phan tu dau danh sach";
+	cout << "\n2.Detele phan tu cuoi danh sach";
+	cout << "\n3.Nhap vao phan tu de detele khoi danh sach";
+	cout << "\nChon: "; cin >> choice;
 
+	if(choice == 1){
+		cout << "\nXoa phan tu dau danh sach";
+		first = first->P_R;
+		first->P_L = NULL;
+		cout << "\nDa xoa xong";
+	}
+	else if(choice == 2){
+		cout << "\nXoa phan tu cuoi danh sach";
+		last = last->P_L;
+		last->P_R = NULL;
+		cout << "\nDa xoa xong";
+	}
+	else if(choice == 3){
+		int ptdl;
+		cout << "\nNhap vao phan tu muon delete: ";
+		cin >> ptdl;
+		Node *P_truoc2, *P_search2 = first;
+		while(P_search2 != NULL && P_search2->DATA != ptdl){
+			P_truoc2 = P_search2;
+			P_search2 = P_search2->P_R;
+		//	P_sau = P_search2;
+		}
+
+		if(P_search2 == NULL){
+			cout << "\nKhong ton tai phan tu " << ptdl << " trong danh sach";
+		}
+		else if(P_search2->P_L == NULL && P_search2->P_R != NULL){
+			first = first->P_R;
+			first->P_L = NULL;
+			cout << "\nDa xoa xong";
+		}
+		else if(P_search2->P_R == NULL && P_search2->P_L != NULL){
+			last = last->P_L;
+			last->P_R = NULL;
+			cout << "\nDa xoa xong";
+		}
+		else{
+			Node *P_sau = P_search2->P_R;
+
+			P_truoc2->P_R = P_sau;
+			P_sau->P_L = P_truoc2;
+
+			cout << "\nDa xoa xong";
+		}
+	}
+	else{
+		cout << "\nCC";
+	}
+}
 
 int main(){
 	makelist();
 	inra();
-	insert();
+	deletenode();
 	inra();
-	insert();
+	deletenode();
+	inra();
+	deletenode();
 	inra();
 	return 0;
 }
